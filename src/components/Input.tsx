@@ -21,12 +21,12 @@ const MyInput = () => {
   const [result] = useQuery({
     query,
   });
+
   const handleChange = (selectedOption: ValueType<any>) => {
-    setSelectedOption(selectedOption);
-    console.log(`Option selected:`, selectedOption.value);
+    setSelectedOption(selectedOption as ValueType<any>);
+    console.log(`Option selected:`, selectedOption);
   };
-  const { fetching, data, error } = result;
-  console.log(data, 'data');
+  const { data } = result;
   let arr = [];
   let myData = [];
   for (let key in data) {
@@ -34,19 +34,20 @@ const MyInput = () => {
       arr.push(data[key]);
     }
   }
+
   for (let data in arr) {
     for (let i of arr[data]) {
-      myData.push({ lable: i, value: i });
+      myData.push({ value: i, label: i });
     }
   }
 
   return (
-    <div style={{ width: '300px', float: 'right', margin: '20px 20px 0 0' }}>
+    <div style={{ width: '700px', float: 'right', margin: '20px 20px 0 0' }}>
       <ReactSelect
-        style={{ width: '300px' }}
         value={selectedOption as ValueType<any>}
         onChange={selectedOption => handleChange(selectedOption)}
         options={myData}
+        isMulti={true}
       />
     </div>
   );
