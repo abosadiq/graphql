@@ -1,5 +1,7 @@
 import { reducer as weatherReducer } from '../Features/Weather/reducer';
-
+import { reducer as metric } from './Reducer/metricReducer';
+import { reducer as measurement } from './Reducer/measurement.reducer';
 export default {
-  weather: weatherReducer,
+  metric,
+  measurement,
 };

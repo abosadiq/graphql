@@ -3,7 +3,6 @@ import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Legend, Tooltip } from 'recharts';
 import './charts.css';
-
 const useStyles = makeStyles({
   card: {
     margin: 'flex',
@@ -11,9 +10,7 @@ const useStyles = makeStyles({
 });
 export default ({ data }: any) => {
   const classes = useStyles();
-  const [state, setState] = React.useState('');
   let arr = [];
-  // / let myData = [];
   for (let key in data) {
     if (data.hasOwnProperty(key)) {
       arr.push(data[key]);
@@ -21,8 +18,11 @@ export default ({ data }: any) => {
   }
 
   let getTime = (x: any) => {
-    let date = new Date(x.at);
+    let milliseconds = x.at;
+    milliseconds = milliseconds - 5 * 60 * 1000;
+    let date = new Date(milliseconds);
     let time = date.toLocaleString([], { hour: '2-digit', minute: '2-digit' });
+    console.log(time, 'oooooo8888');
     return time;
   };
 
@@ -47,7 +47,7 @@ export default ({ data }: any) => {
           isAnimationActive={false}
           dot={false}
         />
-        <Line
+        {/* <Line
           name={data[3].metric}
           unit={data[3].unit}
           type="monotone"
@@ -58,7 +58,7 @@ export default ({ data }: any) => {
           key="value"
           isAnimationActive={false}
           dot={false}
-        />
+        /> */}
       </LineChart>
     </Card>
   );
