@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import { SubscriptionClient } from 'subscriptions-transport-ws';
 import { Provider, createClient, useQuery, useSubscription, subscriptionExchange } from 'urql';
 import ChartsData from './ChartsData';
-import { IState } from '../store';
-import { actions } from '../store/Reducer/measurement.reducer';
+import { IState } from '../../store';
+import { actions } from '../../store/Reducer/measurement.reducer';
 import { useDispatch, useSelector } from 'react-redux';
+import { Input } from '@material-ui/core';
 const subscriptionClient = new SubscriptionClient('ws://react.eogresources.com/graphql', {});
 
 const client = createClient({
@@ -36,17 +37,23 @@ subscription{
 const handleSubscription = (measurements: any = [], response: any) => {
   return [...measurements, response.newMeasurement];
 };
-export default () => {
+export default (props: any): JSX.Element => {
+  const [filter, setFilter] = React.useState();
+
+  const filterData = (param: any) => {
+    console.log('param', param);
+    setFilter(param);
+  };
   return (
     <Provider value={client}>
-      <div style={{ position: 'absolute', top: '65%', left: '55%', transform: 'translate(-50%, -50%)', zIndex: -1 }}>
-        <ChartsDisply />
+      <div style={{ position: 'absolute', top: '60%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+        <ChartsDisply filter={filter} />
       </div>
     </Provider>
   );
 };
 
-const ChartsDisply = (): JSX.Element => {
+const ChartsDisply = (props: any) => {
   const [result] = useQuery({
     query: measurementQuery,
   });
@@ -54,6 +61,7 @@ const ChartsDisply = (): JSX.Element => {
   const dispatch = useDispatch();
 
   const [{ data, error }] = useSubscription({ query: measurement_subscription_query }, handleSubscription);
+
   useEffect(() => {
     if (error) {
       dispatch(actions.ErrorReceived({ error: error.message }));

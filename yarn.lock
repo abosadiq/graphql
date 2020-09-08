@@ -1489,6 +1489,11 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/color-hash@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/color-hash/-/color-hash-1.0.0.tgz#2671e71d46ce07248ca149ca058bdc01c2dbb975"
+  integrity sha512-Vj9gPc43pJeILnI0Yh0ds4+1toNUmvVqKxg/5sY8ESZafKo24TY5eCKXwXPym1xcgEMb2Qxy3dRwaYOro4U5Tg==
+
 "@types/d3-path@*":
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/@types/d3-path/-/d3-path-1.0.8.tgz#48e6945a8ff43ee0a1ce85c8cfa2337de85c7c79"
@@ -2950,6 +2955,11 @@ color-convert@^1.9.0, color-convert@^1.9.1:
   integrity sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==
   dependencies:
     color-name "1.1.3"
+
+color-hash@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/color-hash/-/color-hash-1.0.3.tgz#c0e7952f06d022e548e65da239512bd67d3809ee"
+  integrity sha1-wOeVLwbQIuVI5l2iOVEr1n04Ce4=
 
 color-name@1.1.3:
   version "1.1.3"
@@ -5873,6 +5883,11 @@ is-promise@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/is-promise/-/is-promise-2.1.0.tgz#79a2a9ece7f096e80f36d2b2f3bc16c1ff4bf3fa"
   integrity sha1-eaKp7OfwlugPNtKy87wWwf9L8/o=
+
+is-promise@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/is-promise/-/is-promise-4.0.0.tgz#42ff9f84206c1991d26debf520dd5c01042dd2f3"
+  integrity sha512-hvpoI6korhJMnej285dSg6nu1+e6uxs7zG3BYAm5byqDsgJNWwxzM6z6iZiAgQR4TJ30JmBTOwqZUw3WlyH3AQ==
 
 is-regex@^1.0.4:
   version "1.0.4"

@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { Provider, createClient, useQuery } from 'urql';
 import ReactSelect, { ValueType, OptionTypeBase, ActionMeta } from 'react-select';
-import { actions } from '../store/Reducer/metricReducer';
+import { actions } from '../../store/Reducer/metricReducer';
 import { useDispatch } from 'react-redux';
 import { LinearProgress } from '@material-ui/core';
+import { ACTIONS } from '../../store/actions/actions';
 const client = createClient({
   url: 'https://react.eogresources.com/graphql',
 });
@@ -12,10 +13,10 @@ const query = `
      getMetrics
    }
 `;
-export default () => {
+export default (props: any) => {
   return (
     <Provider value={client}>
-      <MyInput />
+      <MyInput onChangeSelect={(val: any) => props.onChangeSelect(val)} />
     </Provider>
   );
 };
@@ -24,7 +25,7 @@ type OptionType = {
   value: string;
   label: string;
 };
-const MyInput = () => {
+const MyInput = (props: any) => {
   const [selectedOption, setSelectedOption] = React.useState<ValueType<any>>();
   const [result] = useQuery({
     query,
@@ -44,15 +45,15 @@ const MyInput = () => {
     console.log(`Option selected:`, selectedOption);
 
     switch (actionMeta.action) {
-      case 'select-option':
+      case ACTIONS.SELECT_OPTION:
         console.log('add value the store in metrics');
         if (actionMeta.option !== undefined) dispatch(actions.addMetric(actionMeta.option.label));
         // console.log(actionMeta.option.label)
 
         break;
       // when select the x button
-      case 'remove-value':
-      case 'pop-value':
+      case ACTIONS.REMOVE_VALUE:
+      case ACTIONS.POP_VALUE:
         if (actionMeta.removedValue !== undefined) {
           console.log('removes the value that is pop off');
           dispatch(actions.removeMetric(actionMeta.removedValue.label));
@@ -60,7 +61,7 @@ const MyInput = () => {
         }
         break;
       // remove all from the store
-      case 'clear':
+      case ACTIONS.CLEAR:
         console.log('trigger an action that takes away al metric');
         dispatch(actions.removeAllMetric());
         break;

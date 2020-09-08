@@ -1,13 +1,15 @@
 import React, { Fragment } from 'react';
-import Input from './Input';
-import ChartsDisplay from './ChartDisplay';
-import CardDisplay from './CardDisply';
+import Input from './select/Input';
+import ChartsDisplay from './charts/ChartDisplay';
+import CardDisplay from './card/CardDisply';
+import Graph from './charts';
 export default () => {
   return (
     <Fragment>
       <Input />
       <CardDisplay />
-      <ChartsDisplay />
+      {/* <ChartsDisplay /> */}
+      <Graph />
     </Fragment>
   );
 };

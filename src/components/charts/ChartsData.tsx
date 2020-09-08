@@ -11,7 +11,6 @@ query {
 }
 `;
 export default (props: any) => {
-  console.log(props, 'wafiiiiiiiiiii');
   return (
     <Provider value={client}>
       <ChartData {...props} />
