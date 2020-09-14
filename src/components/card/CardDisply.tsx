@@ -31,7 +31,6 @@ export default () => {
 };
 
 const handleSubscription = (measurements: any = [], response: any) => {
-  // console.log(measurements)
   return [...measurements, response.newMeasurement];
 };
 
@@ -56,6 +55,7 @@ const CardDisplay = (): JSX.Element => {
     if (!data) return;
     dispatch(actions.addLatestMetric(data[data.length - 1]));
   }, [dispatch, data, error]);
+
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '200px 200px 200px', gridGap: '10px 10px', marginTop: 20 }}>
       {metric.metrics.map((one_metric: any, key: any) => (

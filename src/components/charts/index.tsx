@@ -1,93 +1,62 @@
-import React, { useState } from 'react';
-import { Provider, createClient, useQuery } from 'urql';
-import { useDispatch, useSelector } from 'react-redux';
-import { Legend, Tooltip, LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
-import { IState } from '../../store';
+import React from 'react';
+// import {  useSelector } from 'react-redux';
 import ColorHash from 'color-hash';
-const getMetric = (state: IState) => {
-  const { metric, measurement } = state;
-  console.log(state, 'my state');
-  return {
-    metric,
-    measurement,
-  };
+
+import { Legend, Tooltip, LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
+// import { IState } from '../../store';
+
+const CustomTooltip = (props: any) => {
+  let { active, label } = props;
+  if (active) {
+    return (
+      <div style={{ width: 'max-content', height: 'max-content' }}>
+        <p>{` time : ${label}`} </p>
+      </div>
+    );
+  }
+
+  return null;
 };
 
 let getTime = (props: any) => {
   let date = new Date(props.time);
   let time = date.toLocaleString([], { hour: '2-digit', minute: '2-digit' });
-
   return time;
 };
 
-export default () => {
-  const [state, setState] = useState({ tooltip: [] });
-  const { metric, measurement } = useSelector(getMetric);
-  manipulate(measurement);
-  if (metric.metrics.length === 0) return null;
+class Graph extends React.Component<any> {
+  shouldComponentUpdate(nextprops: any, nextstate: any) {
+    if (nextprops.data.length === this.props.data.length) return false;
+    return true;
+  }
+  render() {
+    let { data: realdata, measurement, metrics }: any = this.props;
+    if (metrics.length === 0) return null;
 
-  const displayTooltip = (name: any) => (e: any) => {
-    setState({ ...state, [name]: e });
-  };
-  const hideTooltip = (name: any) => (e: any) => {
-    setState({ ...state, [name]: [] });
-  };
-  return (
-    <div>
-      <LineChart
-        width={window.screen.width - 200}
-        height={window.screen.height - 500}
-        data={manipulate(measurement)}
-        // onMouseMove={displayTooltip('tooltip')}
-        // onMouseLeave={hideTooltip('tooltip')}
-      >
+    return (
+      <LineChart width={window.screen.width - 200} height={window.screen.height - 500} data={realdata}>
         <Legend />
         <Tooltip />
         <CartesianGrid strokeDasharray="3" fillOpacity={1} vertical={false} horizontal={false} />
 
-        {metric.metrics.map((items: string) => (
+        {metrics.map((items: string) => (
           <Line
             key={items}
             yAxisId={measurement[items].points[0].unit}
             type="monotone"
-            dataKey={items && items}
+            dataKey={items}
             stroke={new ColorHash().hex(items)}
             strokeOpacity="1"
             isAnimationActive={false}
             dot={false}
           />
         ))}
-        {metric.metrics.map((items: string) => (
-          <YAxis
-            key={items + 1}
-            yAxisId={measurement[items].points[0].unit}
-            dataKey={items}
-            domain={[-100, 1500]}
-            scale="linear"
-          />
+        {metrics.map((items: string) => (
+          <YAxis key={items + 1} yAxisId={measurement[items].points[0].unit} dataKey={items} domain={[-80, 1500]} />
         ))}
         <XAxis dataKey={getTime} />
       </LineChart>
-    </div>
-  );
-};
-
-function manipulate(measurements: any): { [metric: string]: number; time: number }[] {
-  let data: any = [];
-
-  for (let metric in measurements) {
-    console.log(metric, 'metricccccccc');
-    let length = measurements[metric].points.length;
-    for (let index = 0; index < length; index++) {
-      if (data[index] === undefined) {
-        data.push({
-          [metric]: measurements[metric].points[index].value,
-          time: measurements[metric].points[index].time,
-        });
-      } else {
-        data[index] = { ...data[index], [metric]: measurements[metric].points[index].value };
-      }
-    }
+    );
   }
-  return data;
 }
+export default Graph;

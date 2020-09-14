@@ -30,7 +30,9 @@ const App = () => (
     <Provider store={store}>
       <Wrapper>
         <Header />
+
         <NowWhat />
+
         <ToastContainer />
       </Wrapper>
     </Provider>

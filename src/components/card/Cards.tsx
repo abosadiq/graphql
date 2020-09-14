@@ -1,9 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-// import CardActions from '@material-ui/core/CardActions';
+
 import CardContent from '@material-ui/core/CardContent';
-// import Button from '@material-ui/core/Button';
+import ColorHash from 'color-hash';
 import Typography from '@material-ui/core/Typography';
 //
 const useStyles = makeStyles({
@@ -12,19 +12,16 @@ const useStyles = makeStyles({
     fontWeight: 900,
     fontSize: 30,
     marginLeft: 10,
+    height: 100,
   },
 });
-// {metric : string, value: number}
 export default function MyCard(props: any) {
   let { metric, value } = props;
 
-  console.log(props, 'props from card');
   const classes = useStyles();
-  // console.log(props);
-  // const bull = <span className={classes.bullet}>•</span>;
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} style={{ backgroundColor: new ColorHash().hex(metric), color: '#fff' }}>
       <CardContent>
         <Typography variant="h6" component="h6">
           {metric}
