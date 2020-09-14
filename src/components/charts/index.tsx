@@ -1,22 +1,6 @@
 import React from 'react';
-// import {  useSelector } from 'react-redux';
 import ColorHash from 'color-hash';
-
 import { Legend, Tooltip, LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
-// import { IState } from '../../store';
-
-const CustomTooltip = (props: any) => {
-  let { active, label } = props;
-  if (active) {
-    return (
-      <div style={{ width: 'max-content', height: 'max-content' }}>
-        <p>{` time : ${label}`} </p>
-      </div>
-    );
-  }
-
-  return null;
-};
 
 let getTime = (props: any) => {
   let date = new Date(props.time);
