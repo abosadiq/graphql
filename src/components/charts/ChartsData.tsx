@@ -37,7 +37,6 @@ class ChartsData extends React.Component<any, any> {
   }
 
   fourSecondRule = () => {
-    // console.log(manipulate(this.props.measurement));
     this.setState({ data: [...this.state.initial, ...manipulate(this.props.measurement)] });
   };
   ApiCall = (metrics: string[]) => {
